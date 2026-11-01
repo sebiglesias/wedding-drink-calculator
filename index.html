@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding & Party Alcohol Calculator | How Much Beer, Wine & Liquor to Buy</title>
+  <meta name="description" content="Calculate exactly how many bottles of wine, cases of beer, liquor handles, champagne, and bags of ice to buy for your wedding, reception, or party. Professional catering formula.">
+  <meta name="keywords" content="wedding alcohol calculator, how much alcohol for wedding, party drink calculator, how many bottles of wine for 100 guests, alcohol calculator for wedding reception">
+  <link rel="canonical" href="https://sebiglesias.com.ar/wedding-drink-calculator/">
+  <meta name="theme-color" content="#18181b">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Wedding & Party Alcohol Calculator">
+  <meta property="og:description" content="Calculate exact bottles of wine, beer cases, liquor, and ice for your party or wedding.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sebiglesias.com.ar/wedding-drink-calculator/">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Icons & PWA -->
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Google tag (gtag.js) GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BNDBQP0W7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2BNDBQP0W7');
+  </script>
+
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-3381238987477190">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3381238987477190" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Wedding & Party Drink Calculator",
+        "url": "https://sebiglesias.com.ar/wedding-drink-calculator/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "description": "Professional beverage and alcohol estimator for weddings, cocktail receptions, and private parties based on guest count and event duration.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the standard rule for calculating alcohol for a wedding?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The golden catering rule assumes 1 drink per guest per hour of the reception (with slightly more consumed during the first cocktail hour). For a 4-hour wedding with 100 drinking guests, plan for approximately 400 to 450 total servings."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the typical split between beer, wine, and liquor?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For a full bar: 50% Wine, 30% Beer, and 20% Liquor. For a beer and wine only bar: 60% Wine and 40% Beer."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="backlink-bar">
+      <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+    </div>
+
+    <header class="header">
+      <div class="header-badge">🥂 Wedding & Event Planning Utility</div>
+      <h1>Wedding Alcohol Calculator<span class="accent">.</span></h1>
+      <p class="sub">Calculate exact beer cases, wine bottles, liquor handles, champagne & ice</p>
+    </header>
+
+    <!-- Quick Presets -->
+    <div class="presets-bar">
+      <span class="preset-label">Event Presets:</span>
+      <button type="button" class="preset-btn active" data-preset="wedding100">Wedding (100 guests, 5h)</button>
+      <button type="button" class="preset-btn" data-preset="cocktail50">Cocktail Party (50 guests, 4h)</button>
+      <button type="button" class="preset-btn" data-preset="dinner25">Intimate Dinner (25 guests, 4h)</button>
+    </div>
+
+    <!-- Big Results Display -->
+    <section class="card hero-card">
+      <div class="hero-top">
+        <div class="hero-col">
+          <span class="hero-sublabel">Total Estimated Drinks</span>
+          <div class="hero-val-wrap">
+            <span class="hero-number" id="metricTotalDrinks">450</span>
+            <span class="hero-unit">servings</span>
+          </div>
+          <span class="hero-detail">~1 drink per guest / hour</span>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-col highlight">
+          <span class="hero-sublabel">Total Guests</span>
+          <div class="hero-val-wrap">
+            <span class="hero-number" id="metricTotalGuests">100</span>
+            <span class="hero-unit">people</span>
+          </div>
+          <span class="hero-detail" id="metricGuestsBreakdown">85 drinkers · 15 non-drinkers</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inputs Grid -->
+    <div class="inputs-grid">
+      <!-- Card 1: Guests & Duration -->
+      <section class="card">
+        <h2>1. Guests & Duration</h2>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="inputDrinkers">Drinking Guests (Adults 21+)</label>
+            <input type="number" id="inputDrinkers" value="85" min="1" step="5">
+          </div>
+          <div class="field-group">
+            <label for="inputNonDrinkers">Non-Drinkers / Designated</label>
+            <input type="number" id="inputNonDrinkers" value="15" min="0" step="5">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="inputHours">Reception Duration (Hours)</label>
+            <input type="number" id="inputHours" value="5" min="1" max="10" step="1">
+          </div>
+          <div class="field-group">
+            <label for="selectBarType">Bar Menu Type</label>
+            <select id="selectBarType">
+              <option value="full" selected>Full Bar (Wine, Beer & Cocktails)</option>
+              <option value="beer-wine">Beer & Wine Only (No hard liquor)</option>
+              <option value="cocktail-only">Cocktails & Champagne Heavy</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 2: Options & Toast -->
+      <section class="card">
+        <h2>2. Toast & Preferences</h2>
+
+        <div class="checkbox-group">
+          <label class="custom-check">
+            <input type="checkbox" id="checkChampagne" checked>
+            <span>🍾 Include Champagne Toast (1 glass per guest)</span>
+          </label>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="custom-check">
+            <input type="checkbox" id="checkSummer" checked>
+            <span>☀️ Warm Weather / Outdoor (Boosts beer & ice by 25%)</span>
+          </label>
+        </div>
+
+        <div class="field-group mt">
+          <label>Liquor Bottle Sizing</label>
+          <select id="selectBottleSize">
+            <option value="handle" selected>1.75L Handles (Most economical ~39 drinks)</option>
+            <option value="fifth">750ml Fifths (Standard bar bottles ~16 drinks)</option>
+          </select>
+        </div>
+      </section>
+    </div>
+
+    <!-- Complete Shopping List -->
+    <section class="card">
+      <h2>Beverage Shopping Checklist</h2>
+      <p class="section-desc">Quantities calculated with standard 5 oz wine, 12 oz beer, and 1.5 oz spirit pours:</p>
+
+      <div class="materials-list" id="drinkList">
+        <!-- Injected via JS -->
+      </div>
+
+      <button type="button" class="btn-share" id="btnCopyDrinks" style="margin-top: 1.5rem;">
+        <span>📋</span> Copy Beverage Shopping List
+      </button>
+    </section>
+
+    <!-- AdSense Responsive Placement -->
+    <div class="adsense-wrap" style="text-align: center; margin: 2rem 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3381238987477190"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="card faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>How many glasses of wine are in a 750ml bottle?</h3>
+        <p>A standard 750ml wine bottle yields exactly <strong>5 glasses of wine</strong> at the standard 5-ounce restaurant pour.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How much ice do I need for a party?</h3>
+        <p>Plan for <strong>1.5 lbs of ice per guest</strong> for warm weather or outdoor events (covers both chilling beer/wine in tubs and drink ice). For indoor winter dinner parties, 1 lb per guest is sufficient.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Part of the <a href="https://sebiglesias.com.ar">sebiglesias.com.ar</a> utility tools suite.</p>
+      <p class="copy">Free party planning utility · Drink responsibly</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

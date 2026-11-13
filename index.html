@@ -7,6 +7,17 @@
   <meta name="description" content="Calculate exactly how many bottles of wine, cases of beer, liquor handles, champagne, and bags of ice to buy for your wedding, reception, or party. Professional catering formula.">
   <meta name="keywords" content="wedding alcohol calculator, how much alcohol for wedding, party drink calculator, how many bottles of wine for 100 guests, alcohol calculator for wedding reception">
   <link rel="canonical" href="https://sebiglesias.com.ar/wedding-drink-calculator/">
+  <link rel="alternate" hreflang="en" href="https://sebiglesias.com.ar/wedding-drink-calculator/">
+  <link rel="alternate" hreflang="es" href="https://sebiglesias.com.ar/wedding-drink-calculator/?lang=es">
+  <link rel="alternate" hreflang="de" href="https://sebiglesias.com.ar/wedding-drink-calculator/?lang=de">
+  <link rel="alternate" hreflang="fr" href="https://sebiglesias.com.ar/wedding-drink-calculator/?lang=fr">
+  <link rel="alternate" hreflang="it" href="https://sebiglesias.com.ar/wedding-drink-calculator/?lang=it">
+  <link rel="alternate" hreflang="pt" href="https://sebiglesias.com.ar/wedding-drink-calculator/?lang=pt">
+  <link rel="alternate" hreflang="nl" href="https://sebiglesias.com.ar/wedding-drink-calculator/?lang=nl">
+  <link rel="alternate" hreflang="sv" href="https://sebiglesias.com.ar/wedding-drink-calculator/?lang=sv">
+  <link rel="alternate" hreflang="da" href="https://sebiglesias.com.ar/wedding-drink-calculator/?lang=da">
+  <link rel="alternate" hreflang="pl" href="https://sebiglesias.com.ar/wedding-drink-calculator/?lang=pl">
+  <link rel="alternate" hreflang="x-default" href="https://sebiglesias.com.ar/wedding-drink-calculator/">
   <meta name="theme-color" content="#18181b">
 
   <!-- Open Graph -->
@@ -83,8 +94,20 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="backlink-bar">
+    <div class="backlink-bar" style="display:flex;align-items:center;justify-content:space-between">
       <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+      <select id="lang-select" aria-label="Language" style="background:#24221C;border:1px solid rgba(242,239,230,.18);color:#F2EFE6;font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:3px 6px;border-radius:3px;cursor:pointer;margin-left:auto">
+  <option value="en">🇺🇸 EN</option>
+  <option value="es">🇪🇸 ES</option>
+  <option value="de">🇩🇪 DE</option>
+  <option value="fr">🇫🇷 FR</option>
+  <option value="it">🇮🇹 IT</option>
+  <option value="pt">🇵🇹 PT</option>
+  <option value="nl">🇳🇱 NL</option>
+  <option value="sv">🇸🇪 SV</option>
+  <option value="da">🇩🇰 DA</option>
+  <option value="pl">🇵🇱 PL</option>
+</select>
     </div>
 
     <header class="header">
@@ -329,5 +352,41 @@
   </div>
 
   <script src="app.js"></script>
+
+<script>
+/* I18N_AUTO_ENGINE */
+(function(){
+  const DICT = {"en": {"title": "Wedding & Party Alcohol Calculator<span class='accent'>.</span>", "sub": "Wine bottles, beer cases, 1.75L liquor handles, champagne toast & ice"}, "es": {"title": "Calculadora de Bebidas para Bodas y Fiestas<span class='accent'>.</span>", "sub": "Botellas de vino, cajas de cerveza, destilados, brindis con champagne y hielo"}, "de": {"title": "Getränkerechner für Hochzeit & Party<span class='accent'>.</span>", "sub": "Weinflaschen, Bierkästen, Spirituosen, Sekt zum Anstoßen & Eiswürfel"}, "fr": {"title": "Calculateur Boissons Mariage & Soirée<span class='accent'>.</span>", "sub": "Bouteilles de vin, bières, spiritueux, champagne pour le toast et glaçons"}, "it": {"title": "Calcolatore Bevande Matrimonio e Feste<span class='accent'>.</span>", "sub": "Bottiglie di vino, birra, superalcolici, spumante per il brindisi e ghiaccio"}, "pt": {"title": "Calculadora de Bebidas para Casamento e Festa<span class='accent'>.</span>", "sub": "Garrafas de vinho, cerveja, destilados, espumante para brinde e gelo"}, "nl": {"title": "Drank Calculator Bruiloft & Feest<span class='accent'>.</span>", "sub": "Flessen wijn, kratten bier, sterke drank, prosecco toast en ijsblokjes"}, "sv": {"title": "Dryckeskalkylator för Bröllop & Fest<span class='accent'>.</span>", "sub": "Vinflaskor, öl, sprit, bubbel till brudskålen och is efter antal gäster"}, "da": {"title": "Drikkevareberegner til Bryllup & Fest<span class='accent'>.</span>", "sub": "Vinflasker, øl, spiritus, bobler til velkomst og isterninger pr. gæst"}, "pl": {"title": "Kalkulator Alkoholu i Napojów na Wesele<span class='accent'>.</span>", "sub": "Butelki wódki, wina, piwa, szampan na toast oraz lód według liczby gości"}};
+  const h1El = document.querySelector('h1');
+  const subEl = document.querySelector('.sub') || document.querySelector('header p');
+  const selEl = document.getElementById('lang-select');
+  function applyLang(lang) {
+    const entry = DICT[lang] || DICT.en;
+    document.documentElement.lang = lang;
+    if (h1El && entry.title) h1El.innerHTML = entry.title;
+    if (subEl && entry.sub) subEl.textContent = entry.sub;
+    if (lang !== 'en' && entry.sub) {
+      document.title = (h1El ? h1El.textContent : '') + ' — ' + entry.sub;
+    }
+  }
+  const params = new URLSearchParams(window.location.search);
+  const init = params.get('lang') || localStorage.getItem('wedding-drink-calculator-lang') || 'en';
+  const valid = DICT[init] ? init : 'en';
+  if (selEl) {
+    selEl.value = valid;
+    selEl.addEventListener('change', function(e) {
+      const nl = e.target.value;
+      localStorage.setItem('wedding-drink-calculator-lang', nl);
+      const u = new URL(window.location.href);
+      if (nl === 'en') u.searchParams.delete('lang');
+      else u.searchParams.set('lang', nl);
+      window.history.replaceState({}, '', u);
+      applyLang(nl);
+    });
+  }
+  applyLang(valid);
+})();
+</script>
+
 </body>
 </html>
